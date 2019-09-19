@@ -43,8 +43,9 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 
-public class TestHyperLogLogPlus {
-    private static final Logger log = LoggerFactory.getLogger(TestHyperLogLogPlus.class);
+public class OrigTestHyperLogLogPlus {
+    private static final Logger log = LoggerFactory.getLogger(
+        OrigTestHyperLogLogPlus.class);
 
     @Test
     public void testEquals() {
@@ -231,7 +232,7 @@ public class TestHyperLogLogPlus {
         HyperLogLogPlus hyperLogLogPlus = new HyperLogLogPlus(18, 25);
         int size = 10000000;
         for (int i = 0; i < size; i++) {
-            hyperLogLogPlus.offer(TestICardinality.streamElement(i));
+            hyperLogLogPlus.offer(OrigTestICardinality.streamElement(i));
         }
         System.out.println("expected: " + size + ", estimate: " + hyperLogLogPlus.cardinality() + ", time: " + (System.currentTimeMillis() - start));
         long estimate = hyperLogLogPlus.cardinality();

@@ -28,14 +28,14 @@ import org.junit.runners.Parameterized.Parameters;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(Parameterized.class)
-public class TestICardinality {
+public class OrigTestICardinality {
 
     private int N = 1000000;
     private ICardinality cardinalityEstimator;
     private static Random prng = new Random();
     private static char[] hex = "0123456789abcdef".toCharArray();
 
-    public TestICardinality(ICardinality cardinalityEstimator) {
+    public OrigTestICardinality(ICardinality cardinalityEstimator) {
         super();
         this.cardinalityEstimator = cardinalityEstimator;
     }

@@ -29,7 +29,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class CountMinSketchTest {
+public class OrigCountMinSketchTest {
 
     @Test(expected = IllegalStateException.class)
     public void negativeSize() {

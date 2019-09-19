@@ -30,11 +30,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 
-public class Base64Test {
+public class OrigBase64Test {
 
     @Test
     public void testBase64EncodedBloomFilter() throws IOException, ClassNotFoundException {
-        BloomFilter bf = BloomFilter.deserialize(Base64.decodeBase64(Resources.toString(Resources.getResource(Base64Test.class, "encoded_random_keys.bloom"), Charset.forName("UTF-8"))));
+        BloomFilter bf = BloomFilter.deserialize(Base64.decodeBase64(Resources.toString(Resources.getResource(
+            OrigBase64Test.class, "encoded_random_keys.bloom"), Charset.forName("UTF-8"))));
         assertTrue(bf.isPresent("4a7137513e61adbb"));
         assertTrue(bf.isPresent("4ba145c986af5848"));
         assertTrue(bf.isPresent("4b8c73a241c9d017"));

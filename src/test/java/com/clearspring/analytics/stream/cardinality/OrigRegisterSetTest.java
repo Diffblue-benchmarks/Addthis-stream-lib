@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class RegisterSetTest {
+public class OrigRegisterSetTest {
 
     @Test
     public void testGetAndSet() throws Exception {

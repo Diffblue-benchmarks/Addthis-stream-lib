@@ -26,7 +26,7 @@ import cern.jet.random.engine.RandomEngine;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TestConcurrentStreamSummary {
+public class OrigTestConcurrentStreamSummary {
 
     private static final int NUM_ITERATIONS = 100000;
 

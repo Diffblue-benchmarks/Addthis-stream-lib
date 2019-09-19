@@ -27,7 +27,7 @@ import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.Random;
 
-public class KeyGenerator {
+public class ORigKeyGenerator {
 
     private static String randomKey(Random r) {
         StringBuilder buffer = new StringBuilder();
@@ -37,7 +37,7 @@ public class KeyGenerator {
         return buffer.toString();
     }
 
-    static class RandomStringGenerator implements ResetableIterator<String>, Iterable<String> {
+    static class RandomStringGenerator implements OrigResetableIterator<String>, Iterable<String> {
 
         int i, n, seed;
         Random random;
@@ -76,7 +76,7 @@ public class KeyGenerator {
         }
     }
 
-    static class IntGenerator implements ResetableIterator<String> {
+    static class IntGenerator implements OrigResetableIterator<String> {
 
         private int i, start, n;
 
@@ -111,7 +111,7 @@ public class KeyGenerator {
         }
     }
 
-    static class WordGenerator implements ResetableIterator<String> {
+    static class WordGenerator implements OrigResetableIterator<String> {
 
         static int WORDS;
 

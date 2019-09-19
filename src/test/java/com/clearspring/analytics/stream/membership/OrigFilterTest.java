@@ -30,7 +30,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class FilterTest {
+public class OrigFilterTest {
 
     public void testManyHashes(Iterator<String> keys) {
         int MAX_HASH_COUNT = 128;
@@ -57,19 +57,19 @@ public class FilterTest {
     public static final BloomCalculations.BloomSpecification spec = BloomCalculations.computeBucketsAndK(MAX_FAILURE_RATE);
     static final int ELEMENTS = 10000;
 
-    static final ResetableIterator<String> intKeys() {
-        return new KeyGenerator.IntGenerator(ELEMENTS);
+    static final OrigResetableIterator<String> intKeys() {
+        return new ORigKeyGenerator.IntGenerator(ELEMENTS);
     }
 
-    static final ResetableIterator<String> randomKeys() {
-        return new KeyGenerator.RandomStringGenerator(314159, ELEMENTS);
+    static final OrigResetableIterator<String> randomKeys() {
+        return new ORigKeyGenerator.RandomStringGenerator(314159, ELEMENTS);
     }
 
-    static final ResetableIterator<String> randomKeys2() {
-        return new KeyGenerator.RandomStringGenerator(271828, ELEMENTS);
+    static final OrigResetableIterator<String> randomKeys2() {
+        return new ORigKeyGenerator.RandomStringGenerator(271828, ELEMENTS);
     }
 
-    public static void testFalsePositives(Filter f, ResetableIterator<String> keys, ResetableIterator<String> otherkeys) {
+    public static void testFalsePositives(Filter f, OrigResetableIterator<String> keys, OrigResetableIterator<String> otherkeys) {
         assertEquals(keys.size(), otherkeys.size());
 
         while (keys.hasNext()) {

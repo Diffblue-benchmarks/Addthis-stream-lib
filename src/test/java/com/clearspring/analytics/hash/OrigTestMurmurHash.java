@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author epollan
  */
-public class TestMurmurHash {
+public class OrigTestMurmurHash {
 
     @Test
     public void testHashByteArrayOverload() {

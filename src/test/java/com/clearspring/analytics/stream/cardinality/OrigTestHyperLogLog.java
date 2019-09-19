@@ -20,6 +20,8 @@ import java.io.IOException;
 
 import java.util.Arrays;
 
+import com.clearspring.analytics.TestUtils;
+
 import com.google.common.base.Charsets;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
@@ -30,51 +32,77 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TestLogLog {
+public class OrigTestHyperLogLog {
 
     @Test
-    public void testSerialization() throws IOException {
-        LogLog hll = new LogLog(8);
+    public void testComputeCount() {
+        HyperLogLog hyperLogLog = new HyperLogLog(16);
+        hyperLogLog.offer(0);
+        hyperLogLog.offer(1);
+        hyperLogLog.offer(2);
+        hyperLogLog.offer(3);
+        hyperLogLog.offer(16);
+        hyperLogLog.offer(17);
+        hyperLogLog.offer(18);
+        hyperLogLog.offer(19);
+        hyperLogLog.offer(19);
+        assertEquals(8, hyperLogLog.cardinality());
+    }
+
+    @Test
+    public void testSerialization() throws IOException, ClassNotFoundException {
+        HyperLogLog hll = new HyperLogLog(8);
         hll.offer("a");
         hll.offer("b");
         hll.offer("c");
         hll.offer("d");
         hll.offer("e");
 
-        LogLog hll2 = new LogLog(hll.getBytes());
+        HyperLogLog hll2 = (HyperLogLog) TestUtils.deserialize(TestUtils.serialize(hll));
+        assertEquals(hll.cardinality(), hll2.cardinality());
+    }
+
+    @Test
+    public void testSerializationUsingBuilder() throws IOException {
+        HyperLogLog hll = new HyperLogLog(8);
+        hll.offer("a");
+        hll.offer("b");
+        hll.offer("c");
+        hll.offer("d");
+        hll.offer("e");
+
+        HyperLogLog hll2 = HyperLogLog.Builder.build(hll.getBytes());
         assertEquals(hll.cardinality(), hll2.cardinality());
     }
 
     @Test
     public void testHighCardinality() {
         long start = System.currentTimeMillis();
-        LogLog loglog = new LogLog(10);
+        HyperLogLog hyperLogLog = new HyperLogLog(10);
         int size = 10000000;
         for (int i = 0; i < size; i++) {
-            loglog.offer(TestICardinality.streamElement(i));
+            hyperLogLog.offer(OrigTestICardinality.streamElement(i));
         }
         System.out.println("time: " + (System.currentTimeMillis() - start));
-        long estimate = loglog.cardinality();
+        long estimate = hyperLogLog.cardinality();
         double err = Math.abs(estimate - size) / (double) size;
         System.out.println(err);
-        assertTrue(err < .11);
+        assertTrue(err < .1);
     }
 
     @Test
-    public void testHighCardinalityHighOrder() {
+    public void testHighCardinality_withDefinedRSD() {
         long start = System.currentTimeMillis();
-        LogLog loglog = new LogLog(25);
+        HyperLogLog hyperLogLog = new HyperLogLog(0.01);
         int size = 100000000;
         for (int i = 0; i < size; i++) {
-            loglog.offer(TestICardinality.streamElement(i));
+            hyperLogLog.offer(OrigTestICardinality.streamElement(i));
         }
         System.out.println("time: " + (System.currentTimeMillis() - start));
-        long estimate = loglog.cardinality();
+        long estimate = hyperLogLog.cardinality();
         double err = Math.abs(estimate - size) / (double) size;
-        System.out.println(size);
-        System.out.println(estimate);
         System.out.println(err);
-        assertTrue(err < .06);
+        assertTrue(err < .1);
     }
 
     @Test
@@ -83,26 +111,43 @@ public class TestLogLog {
         int bits = 16;
         int cardinality = 1000000;
 
-        LogLog[] loglogs = new LogLog[numToMerge];
-        LogLog baseline = new LogLog(bits);
+        HyperLogLog[] hyperLogLogs = new HyperLogLog[numToMerge];
+        HyperLogLog baseline = new HyperLogLog(bits);
         for (int i = 0; i < numToMerge; i++) {
-            loglogs[i] = new LogLog(bits);
+            hyperLogLogs[i] = new HyperLogLog(bits);
             for (int j = 0; j < cardinality; j++) {
                 double val = Math.random();
-                loglogs[i].offer(val);
+                hyperLogLogs[i].offer(val);
                 baseline.offer(val);
             }
         }
 
 
-        LogLog hll = loglogs[0];
-        loglogs = Arrays.asList(loglogs).subList(1, loglogs.length).toArray(new LogLog[0]);
-        long mergedEstimate = hll.merge(loglogs).cardinality();
+        long expectedCardinality = numToMerge * cardinality;
+        HyperLogLog hll = hyperLogLogs[0];
+        hyperLogLogs = Arrays.asList(hyperLogLogs).subList(1, hyperLogLogs.length).toArray(new HyperLogLog[0]);
+        long mergedEstimate = hll.merge(hyperLogLogs).cardinality();
         long baselineEstimate = baseline.cardinality();
+        double se = expectedCardinality * (1.04 / Math.sqrt(Math.pow(2, bits)));
 
         System.out.println("Baseline estimate: " + baselineEstimate);
+        System.out.println("Expect estimate: " + mergedEstimate + " is between " + (expectedCardinality - (3 * se)) + " and " + (expectedCardinality + (3 * se)));
 
+        assertTrue(mergedEstimate >= expectedCardinality - (3 * se));
+        assertTrue(mergedEstimate <= expectedCardinality + (3 * se));
         assertEquals(mergedEstimate, baselineEstimate);
+    }
+
+    /**
+     * should not fail with HyperLogLogMergeException: "Cannot merge estimators of different sizes"
+     */
+    @Test
+    public void testMergeWithRegisterSet() throws CardinalityMergeException {
+        HyperLogLog first = new HyperLogLog(16, new RegisterSet(1 << 20));
+        HyperLogLog second = new HyperLogLog(16, new RegisterSet(1 << 20));
+        first.offer(0);
+        second.offer(1);
+        first.merge(second);
     }
 
     @Test
@@ -110,8 +155,8 @@ public class TestLogLog {
     public void testPrecise() throws CardinalityMergeException {
         int cardinality = 1000000000;
         int b = 12;
-        LogLog baseline = new LogLog(b);
-        LogLog guava128 = new LogLog(b);
+        HyperLogLog baseline = new HyperLogLog(b);
+        HyperLogLog guava128 = new HyperLogLog(b);
         HashFunction hf128 = Hashing.murmur3_128();
         for (int j = 0; j < cardinality; j++) {
             Double val = Math.random();

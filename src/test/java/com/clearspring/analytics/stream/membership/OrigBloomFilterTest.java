@@ -27,7 +27,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
-import com.clearspring.analytics.stream.membership.KeyGenerator.RandomStringGenerator;
+import com.clearspring.analytics.stream.membership.ORigKeyGenerator.RandomStringGenerator;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -39,14 +39,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 
-public class BloomFilterTest {
+public class OrigBloomFilterTest {
 
     public BloomFilter bf;
     public BloomFilter bf2;
     public BloomCalculations.BloomSpecification spec = BloomCalculations.computeBucketsAndK(0.0001);
     static final int ELEMENTS = 10000;
 
-    public BloomFilterTest() {
+    public OrigBloomFilterTest() {
         bf = new BloomFilter(ELEMENTS, spec.bucketsPerElement);
         bf2 = new BloomFilter(ELEMENTS, spec.bucketsPerElement);
         assertNotNull(bf);
@@ -86,29 +86,31 @@ public class BloomFilterTest {
 
     @Test
     public void testFalsePositivesInt() {
-        FilterTest.testFalsePositives(bf, FilterTest.intKeys(), FilterTest.randomKeys2());
+        OrigFilterTest
+            .testFalsePositives(bf, OrigFilterTest.intKeys(), OrigFilterTest.randomKeys2());
     }
 
     @Test
     public void testFalsePositivesRandom() {
-        FilterTest.testFalsePositives(bf, FilterTest.randomKeys(), FilterTest.randomKeys2());
+        OrigFilterTest
+            .testFalsePositives(bf, OrigFilterTest.randomKeys(), OrigFilterTest.randomKeys2());
     }
 
     @Test
     public void testWords() {
-        if (KeyGenerator.WordGenerator.WORDS == 0) {
+        if (ORigKeyGenerator.WordGenerator.WORDS == 0) {
             return;
         }
-        BloomFilter bf2 = new BloomFilter(KeyGenerator.WordGenerator.WORDS / 2, FilterTest.spec.bucketsPerElement);
-        int skipEven = KeyGenerator.WordGenerator.WORDS % 2 == 0 ? 0 : 2;
-        FilterTest.testFalsePositives(bf2,
-                new KeyGenerator.WordGenerator(skipEven, 2),
-                new KeyGenerator.WordGenerator(1, 2));
+        BloomFilter bf2 = new BloomFilter(ORigKeyGenerator.WordGenerator.WORDS / 2, OrigFilterTest.spec.bucketsPerElement);
+        int skipEven = ORigKeyGenerator.WordGenerator.WORDS % 2 == 0 ? 0 : 2;
+        OrigFilterTest.testFalsePositives(bf2,
+                new ORigKeyGenerator.WordGenerator(skipEven, 2),
+                new ORigKeyGenerator.WordGenerator(1, 2));
     }
 
     @Test
     public void testSerialize() throws IOException {
-        FilterTest.testSerialize(bf);
+        OrigFilterTest.testSerialize(bf);
     }
 
     @Test
@@ -282,31 +284,31 @@ public class BloomFilterTest {
     // run with -mx1G
     public void testBigInt() {
         int size = 100 * 1000 * 1000;
-        bf = new BloomFilter(size, FilterTest.spec.bucketsPerElement);
-        FilterTest.testFalsePositives(bf,
-                new KeyGenerator.IntGenerator(size),
-                new KeyGenerator.IntGenerator(size, size * 2));
+        bf = new BloomFilter(size, OrigFilterTest.spec.bucketsPerElement);
+        OrigFilterTest.testFalsePositives(bf,
+                new ORigKeyGenerator.IntGenerator(size),
+                new ORigKeyGenerator.IntGenerator(size, size * 2));
     }
 
     @Ignore
     @Test
     public void testBigRandom() {
         int size = 100 * 1000 * 1000;
-        bf = new BloomFilter(size, FilterTest.spec.bucketsPerElement);
-        FilterTest.testFalsePositives(bf,
-                new KeyGenerator.RandomStringGenerator(new Random().nextInt(), size),
-                new KeyGenerator.RandomStringGenerator(new Random().nextInt(), size));
+        bf = new BloomFilter(size, OrigFilterTest.spec.bucketsPerElement);
+        OrigFilterTest.testFalsePositives(bf,
+                new ORigKeyGenerator.RandomStringGenerator(new Random().nextInt(), size),
+                new ORigKeyGenerator.RandomStringGenerator(new Random().nextInt(), size));
     }
 
     @Ignore
     @Test
     public void timeit() {
-        int size = 300 * FilterTest.ELEMENTS;
-        bf = new BloomFilter(size, FilterTest.spec.bucketsPerElement);
+        int size = 300 * OrigFilterTest.ELEMENTS;
+        bf = new BloomFilter(size, OrigFilterTest.spec.bucketsPerElement);
         for (int i = 0; i < 10; i++) {
-            FilterTest.testFalsePositives(bf,
-                    new KeyGenerator.RandomStringGenerator(new Random().nextInt(), size),
-                    new KeyGenerator.RandomStringGenerator(new Random().nextInt(), size));
+            OrigFilterTest.testFalsePositives(bf,
+                    new ORigKeyGenerator.RandomStringGenerator(new Random().nextInt(), size),
+                    new ORigKeyGenerator.RandomStringGenerator(new Random().nextInt(), size));
             bf.clear();
         }
     }

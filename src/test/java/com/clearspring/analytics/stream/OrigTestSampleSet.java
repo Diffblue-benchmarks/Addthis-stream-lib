@@ -29,7 +29,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 
-public class TestSampleSet {
+public class OrigTestSampleSet {
 
     private SampleSet<String> set;
     private String[] e;

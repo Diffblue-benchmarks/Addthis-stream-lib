@@ -30,7 +30,7 @@ import cern.jet.random.engine.RandomEngine;
 import static org.junit.Assert.assertTrue;
 
 
-public class TestStochasticTopper {
+public class OrigTestStochasticTopper {
 
     private static final int NUM_ITERATIONS = 100000;
     private static final int NUM_ELEMENTS = 10;

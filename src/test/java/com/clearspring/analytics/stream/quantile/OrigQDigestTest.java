@@ -10,7 +10,7 @@ import cern.jet.random.engine.RandomEngine;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class QDigestTest {
+public class OrigQDigestTest {
 
     @Test
     public void testComprehensiveOnMixture() {

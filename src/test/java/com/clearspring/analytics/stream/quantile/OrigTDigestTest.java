@@ -50,7 +50,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
-public class TDigestTest {
+public class OrigTDigestTest {
 
     private static PrintWriter sizeDump;
     private static PrintWriter errorDump;

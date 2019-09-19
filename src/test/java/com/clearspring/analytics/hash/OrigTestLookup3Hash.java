@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @author yonik
  */
-public class TestLookup3Hash {
+public class OrigTestLookup3Hash {
 
     // Test that the java version produces the same output as the C version
 

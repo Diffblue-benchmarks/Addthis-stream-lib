@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestCountThenEstimate {
+public class OrigTestCountThenEstimate {
 
     @Test
     public void testMerge() throws CardinalityMergeException {

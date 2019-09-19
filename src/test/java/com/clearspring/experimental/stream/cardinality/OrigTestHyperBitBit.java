@@ -16,14 +16,14 @@
 
 package com.clearspring.experimental.stream.cardinality;
 
-import com.clearspring.analytics.stream.cardinality.TestICardinality;
+import com.clearspring.analytics.stream.cardinality.OrigTestICardinality;
 
 import org.junit.Test;
 import org.junit.Ignore;
 import static org.junit.Assert.assertTrue;
 
 
-public class TestHyperBitBit {
+public class OrigTestHyperBitBit {
     // This test are "in progress" until HyperBitBit has better known error bounds
     // Right now they will no fail ever (@ignore)
 
@@ -39,7 +39,7 @@ public class TestHyperBitBit {
             HyperBitBit hyperBitBit = new HyperBitBit();
 
             for (int i = 0; i < size; i++) {
-                hyperBitBit.offer(TestICardinality.streamElement(i));
+                hyperBitBit.offer(OrigTestICardinality.streamElement(i));
             }
             System.out.println("time: " + (System.currentTimeMillis() - start));
             long estimate = hyperBitBit.cardinality();

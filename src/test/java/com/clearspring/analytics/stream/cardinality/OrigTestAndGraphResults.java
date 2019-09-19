@@ -47,7 +47,7 @@ import org.junit.runners.Parameterized.Parameters;
 
 @Ignore
 @RunWith(Parameterized.class)
-public class TestAndGraphResults {
+public class OrigTestAndGraphResults {
 
     private static int CARDINALITY = 50000000;
     private static int NUM_RESULTS = 10000;
@@ -60,7 +60,7 @@ public class TestAndGraphResults {
         return Arrays.asList(new Object[][]{{15}, {16}, {17}, {10}});
     }
 
-    public TestAndGraphResults(int k) {
+    public OrigTestAndGraphResults(int k) {
         this.k = k;
     }
 
@@ -85,7 +85,7 @@ public class TestAndGraphResults {
             int card = n + 1;
             boolean output = card % outputIncrement == 0;
             for (int t = 0; t < NUM_TRIALS; t++) {
-                estimators[t].offer(TestICardinality.streamElement(0));
+                estimators[t].offer(OrigTestICardinality.streamElement(0));
 
                 if (output) {
                     double err = Math.abs(estimators[t].cardinality() - card) / (double) card;
@@ -156,7 +156,7 @@ public class TestAndGraphResults {
         System.out.println();
 
         System.out.println(String.format("%8s %-8s %-8s %-8s", "n", "max", "avg", "min"));
-        List<Pair<Integer, double[]>> results = new TestAndGraphResults(k).testLogLog(builder, "%2$8d %3$8f %4$8f %5$8f");
+        List<Pair<Integer, double[]>> results = new OrigTestAndGraphResults(k).testLogLog(builder, "%2$8d %3$8f %4$8f %5$8f");
 
         if (graph) {
             graphResults(results, k, estimator);
