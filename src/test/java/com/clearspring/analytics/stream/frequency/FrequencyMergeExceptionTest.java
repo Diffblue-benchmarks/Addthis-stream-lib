@@ -9,14 +9,14 @@ import org.junit.rules.Timeout;
 
 public class FrequencyMergeExceptionTest {
 
-  // Test written by Diffblue Cover.
-  @Test
-  public void constructorInputNotNullOutputNotNull() {
-
-    // Act, creating object to test constructor
-    final FrequencyMergeException actual = new FrequencyMergeException("foo");
-
-    // Assert result
-    Assert.assertNotNull(actual);
-  }
+//  // Test written by Diffblue Cover.
+//  @Test
+//  public void constructorInputNotNullOutputNotNull() {
+//
+//    // Act, creating object to test constructor
+//    final FrequencyMergeException actual = new FrequencyMergeException("foo");
+//
+//    // Assert result
+//    Assert.assertNotNull(actual);
+//  }
 }

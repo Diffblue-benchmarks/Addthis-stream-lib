@@ -40,6 +40,9 @@ import java.util.BitSet;
 @RunWith(PowerMockRunner.class)
 public class BloomFilterTest {
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
+
   // Test written by Diffblue Cover.
   @PrepareForTest({BloomFilterSerializer.class, ObjectInputStream.class, BitSetSerializer.class})
   @Test

@@ -23,6 +23,9 @@ import java.lang.reflect.Array;
 @RunWith(PowerMockRunner.class)
 public class HyperBitBitTest {
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
+
   // Test written by Diffblue Cover.
   @Test
   public void mergeInput0OutputHyperBitBitMergeException() throws CardinalityMergeException {

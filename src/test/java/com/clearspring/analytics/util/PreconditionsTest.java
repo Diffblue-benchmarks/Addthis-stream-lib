@@ -9,6 +9,9 @@ import org.junit.rules.Timeout;
 
 public class PreconditionsTest {
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
+
   // Test written by Diffblue Cover.
   @Test
   public void constructorOutputNotNull() {

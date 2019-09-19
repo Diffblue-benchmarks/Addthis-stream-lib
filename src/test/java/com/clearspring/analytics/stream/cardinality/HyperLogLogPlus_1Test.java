@@ -22,6 +22,9 @@ import java.lang.reflect.Method;
 
 public class HyperLogLogPlus_1Test {
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
+
   // Test written by Diffblue Cover.
   @Test
   public void constructorInputNotNullOutputNotNull() {

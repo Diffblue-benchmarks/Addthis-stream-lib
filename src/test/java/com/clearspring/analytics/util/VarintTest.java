@@ -23,6 +23,9 @@ import java.lang.reflect.InvocationTargetException;
 @RunWith(PowerMockRunner.class)
 public class VarintTest {
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
+
   // Test written by Diffblue Cover.
   @Test
   public void readSignedVarIntInput10OutputIllegalArgumentException() {

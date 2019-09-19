@@ -27,6 +27,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RunWith(PowerMockRunner.class)
 public class GroupTreeTest {
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
+
   // Test written by Diffblue Cover.
   @Test
   public void floorInputNotNullOutputIllegalStateException() throws InvocationTargetException {

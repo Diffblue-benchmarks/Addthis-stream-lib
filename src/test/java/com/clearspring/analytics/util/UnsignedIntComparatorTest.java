@@ -9,6 +9,9 @@ import org.junit.rules.Timeout;
 
 public class UnsignedIntComparatorTest {
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
+
   // Test written by Diffblue Cover.
   @Test
   public void compareInput02OutputZero() {

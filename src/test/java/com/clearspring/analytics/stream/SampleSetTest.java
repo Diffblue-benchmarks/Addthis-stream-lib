@@ -28,6 +28,9 @@ import java.util.Random;
 @RunWith(PowerMockRunner.class)
 public class SampleSetTest {
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
+
   // Test written by Diffblue Cover.
 
   @Test

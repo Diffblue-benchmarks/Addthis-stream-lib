@@ -34,6 +34,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RunWith(PowerMockRunner.class)
 public class TDigestTest {
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
+
   // Test written by Diffblue Cover.
   @PrepareForTest(fullyQualifiedNames = {"com.clearspring.analytics.stream.quantile.TDigest$Group"},
                   value = AtomicInteger.class)

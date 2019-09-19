@@ -19,16 +19,19 @@ import java.util.NoSuchElementException;
 @RunWith(PowerMockRunner.class)
 public class AbstractIteratorTest {
 
-  // Test written by Diffblue Cover.
-  @Test
-  public void constructorOutputNotNull() {
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
 
-    // Act, creating object to test constructor
-    final AbstractIterator actual = new AbstractIterator();
-
-    // Assert result
-    Assert.assertNotNull(actual);
-  }
+//  // Test written by Diffblue Cover.
+//  @Test
+//  public void constructorOutputNotNull() {
+//
+//    // Act, creating object to test constructor
+//    final AbstractIterator actual = new AbstractIterator();
+//
+//    // Assert result
+//    Assert.assertNotNull(actual);
+//  }
 
   // Test written by Diffblue Cover.
   @Test

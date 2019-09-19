@@ -35,6 +35,9 @@ import java.util.HashMap;
 @RunWith(PowerMockRunner.class)
 public class TopKTest {
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
+
   // Test written by Diffblue Cover.
   @PrepareForTest({TopK.class, StringBuilder.class})
   @Test

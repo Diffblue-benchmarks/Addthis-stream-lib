@@ -24,17 +24,17 @@ import java.lang.reflect.Method;
 @RunWith(PowerMockRunner.class)
 public class FilterTest {
 
-  // Test written by Diffblue Cover.
-  @Test
-  public void constructorOutputNotNull() {
-
-    // Act, creating object to test constructor
-    final Filter actual = new Filter();
-
-    // Assert result
-    Assert.assertNotNull(actual);
-    Assert.assertEquals(0, actual.hashCount);
-  }
+//  // Test written by Diffblue Cover.
+//  @Test
+//  public void constructorOutputNotNull() {
+//
+//    // Act, creating object to test constructor
+//    final Filter actual = new Filter();
+//
+//    // Assert result
+//    Assert.assertNotNull(actual);
+//    Assert.assertEquals(0, actual.hashCount);
+//  }
 
   // Test written by Diffblue Cover.
   @Test
@@ -91,27 +91,27 @@ public class FilterTest {
     Assert.assertArrayEquals(new int[] {0}, actual);
   }
 
-  // Test written by Diffblue Cover.
-  @PrepareForTest(Filter.class)
-  @Test
-  public void getHashBucketsInputNotNullOutputNotNull()
-      throws Exception, InvocationTargetException {
-
-    // Arrange
-    final Filter filter = PowerMockito.mock(Filter.class);
-    final Object myJava::array[int] = Reflector.getInstance("java::array[int]");
-    Reflector.setField(myJava::array[int], "data", null);
-    Reflector.setField(myJava::array[int], "length", 0);
-    PowerMockito.when(filter.getHashBuckets(or(isA(String.class), isNull(String.class))))
-        .thenReturn(myJava::array[int]);
-    filter.hashCount = 0;
-
-    // Act
-    final int[] actual = filter.getHashBuckets("\u0000");
-
-    // Assert result
-    Assert.assertNotNull(actual);
-  }
+//  // Test written by Diffblue Cover.
+//  @PrepareForTest(Filter.class)
+//  @Test
+//  public void getHashBucketsInputNotNullOutputNotNull()
+//      throws Exception, InvocationTargetException {
+//
+//    // Arrange
+//    final Filter filter = PowerMockito.mock(Filter.class);
+//    final Object myJava::array[int] = Reflector.getInstance("java::array[int]");
+//    Reflector.setField(myJava::array[int], "data", null);
+//    Reflector.setField(myJava::array[int], "length", 0);
+//    PowerMockito.when(filter.getHashBuckets(or(isA(String.class), isNull(String.class))))
+//        .thenReturn(myJava::array[int]);
+//    filter.hashCount = 0;
+//
+//    // Act
+//    final int[] actual = filter.getHashBuckets("\u0000");
+//
+//    // Assert result
+//    Assert.assertNotNull(actual);
+//  }
 
   // Test written by Diffblue Cover.
   @PrepareForTest(Filter.class)
@@ -457,27 +457,27 @@ public class FilterTest {
     Assert.assertArrayEquals(new int[] {}, actual);
   }
 
-  // Test written by Diffblue Cover.
-  @PrepareForTest(Filter.class)
-  @Test
-  public void getHashBucketsInput0OutputNotNull() throws Exception, InvocationTargetException {
-
-    // Arrange
-    final Filter filter = PowerMockito.mock(Filter.class);
-    final Object myJava::array[int] = Reflector.getInstance("java::array[int]");
-    Reflector.setField(myJava::array[int], "data", null);
-    Reflector.setField(myJava::array[int], "length", 0);
-    PowerMockito.when(filter.getHashBuckets(or(isA(byte[].class), isNull(byte[].class))))
-        .thenReturn(myJava::array[int]);
-    filter.hashCount = 0;
-    final byte[] key = {};
-
-    // Act
-    final int[] actual = filter.getHashBuckets(key);
-
-    // Assert result
-    Assert.assertNotNull(actual);
-  }
+//  // Test written by Diffblue Cover.
+//  @PrepareForTest(Filter.class)
+//  @Test
+//  public void getHashBucketsInput0OutputNotNull() throws Exception, InvocationTargetException {
+//
+//    // Arrange
+//    final Filter filter = PowerMockito.mock(Filter.class);
+//    final Object myJava::array[int] = Reflector.getInstance("java::array[int]");
+//    Reflector.setField(myJava::array[int], "data", null);
+//    Reflector.setField(myJava::array[int], "length", 0);
+//    PowerMockito.when(filter.getHashBuckets(or(isA(byte[].class), isNull(byte[].class))))
+//        .thenReturn(myJava::array[int]);
+//    filter.hashCount = 0;
+//    final byte[] key = {};
+//
+//    // Act
+//    final int[] actual = filter.getHashBuckets(key);
+//
+//    // Assert result
+//    Assert.assertNotNull(actual);
+//  }
 
   // Test written by Diffblue Cover.
   @PrepareForTest(Filter.class)

@@ -29,6 +29,9 @@ import java.util.Random;
 @RunWith(PowerMockRunner.class)
 public class StochasticTopperTest {
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
+
   // Test written by Diffblue Cover.
 
   @Test

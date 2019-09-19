@@ -43,6 +43,9 @@ import java.util.HashSet;
 @RunWith(PowerMockRunner.class)
 public class CountThenEstimateTest {
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
+
   // Test written by Diffblue Cover.
   @PrepareForTest({ObjectOutputStream.class, ExternalizableUtil.class, CountThenEstimate.class,
                    ObjectOutput.class})

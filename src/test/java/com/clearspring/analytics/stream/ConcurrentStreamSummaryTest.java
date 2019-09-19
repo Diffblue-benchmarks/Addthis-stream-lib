@@ -42,6 +42,9 @@ import java.util.concurrent.atomic.AtomicReference;
 @RunWith(PowerMockRunner.class)
 public class ConcurrentStreamSummaryTest {
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
+
   // Test written by Diffblue Cover.
   @PrepareForTest({ConcurrentStreamSummary.class, AbstractCollection.class,
                    ConcurrentHashMap.class})

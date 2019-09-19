@@ -46,6 +46,9 @@ import java.util.List;
 @RunWith(PowerMockRunner.class)
 public class QDigestTest {
 
+  @Rule
+  public final ExpectedException thrown = ExpectedException.none();
+
   // Test written by Diffblue Cover.
   @PrepareForTest({Long2LongOpenHashMap.class, ArrayList.class, LongSet.class, QDigest.class})
   @Test
